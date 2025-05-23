@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { LuNotebookPen } from "react-icons/lu";
 import NoteEditor from '../components/NoteEditor.jsx'; 
 import Navbar from "../components/Navbar";
@@ -59,7 +58,7 @@ const handleDelete = async (id) => {
     e.preventDefault();
     try {
       const newNote = {
-        id: uuidv4(),
+        id = crypto.randomUUID(),
         title,
         content,
         updatedAt: new Date().toISOString(),
