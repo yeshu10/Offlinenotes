@@ -1,9 +1,4 @@
 import axios from 'axios';
-import { store } from '../store';
-import { clearNotes } from '../store/slices/notesSlice';
-import debounce from 'lodash/debounce';
-
-
 let currentNotesRequest = null;
 let backendURL = import.meta.env.VITE_BACKEND_URL;
 
@@ -13,41 +8,30 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-
-
-
-
-
 export const notesAPI = {
   getAllNotes: async (page = 1, limit = 10, showArchived = false) => {
     try {
-      // Cancel previous request if it exists
-      if (currentNotesRequest) {
+      if (currentNotesRequest) 
+      {
         console.log('Cancelling previous notes request');
         currentNotesRequest.cancel();
       }
-      
-      // Create a new cancel token
       const CancelToken = axios.CancelToken;
       const source = CancelToken.source();
       currentNotesRequest = source;
-      
       console.log('Fetching notes with params:', { page, limit, showArchived });
-      
       
       const response = await api.get('/notes', {
         params: { page, limit, showArchived },
         cancelToken: source.token
       });
       
-      
       currentNotesRequest = null;
       
       console.log('Got notes response:', response.data);
       return response.data;
-    } catch (error) {
-      
+    } 
+    catch (error) {   
       if (axios.isCancel(error)) {
         console.log('Request was cancelled:', error.message);
         throw new Error('Request cancelled');
