@@ -58,7 +58,7 @@ const handleDelete = async (id) => {
     e.preventDefault();
     try {
       const newNote = {
-        id = crypto.randomUUID(),
+        id :crypto.randomUUID(),
         title,
         content,
         updatedAt: new Date().toISOString(),
